@@ -23,6 +23,15 @@ def game_hash
       } #end away players
     } #end away hash
   }
-
 game_hash
+end
+
+def num_points_scored(player_name)
+  if game_hash[:home][:players].keys.include?(player_name)
+    game_hash[:home][:players][player_name][:points]
+  elsif game_hash[:away][:players].keys.include?(player_name)
+    game_hash[:away][:players][player_name][:points]
+  else
+    puts "Player not found"
+  end
 end
