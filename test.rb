@@ -1,4 +1,5 @@
-require 'pry'
+require "pry"
+
 def game_hash
   game_hash = {
     away: {
@@ -117,97 +118,12 @@ def game_hash
   }
 end
 
-
-def num_points_scored(player_name)
-  if game_hash[:home][:players].keys.include?(player_name)
-    game_hash[:home][:players][player_name][:points]
-  elsif game_hash[:away][:players].keys.include?(player_name)
-    game_hash[:away][:players][player_name][:points]
-  else
-    "Name not recognized"
-  end
-end
-
-def shoe_size(player_name)
-  game_hash.each do |location, team_data|
-    if team_data[:players].include?(player_name)
-      return team_data[:players][player_name][:shoe]
-    end
-  end
-end
-
 def team_colors(team)
   game_hash.each do |location, team_data|
     if team == team_data[:team_name]
-      return team_data[:colors]
+      team_data[:colors]
     end
   end
 end
 
-
-def team_names
-  game_hash.each_with_object([]) do |(location, team_data), names|
-    names << team_data[:team_name]
-  end
-end
-
-def player_numbers(team_name)
-  game_hash.each_with_object([]) do |(location, team_data), numbers|
-    if team_data[:team_name] == team_name
-      team_data[:players].each { |player, stats| numbers << stats[:number] }
-    end
-  end
-end
-
-
-# THE METHODS HEREAFTER ARE NOT DE-SANDWHICHED
-
-def player_stats(player_name)
-  player_stats = []
-  game_hash.each do |location, team_data|
-    team_data[:players].each do |player, stats|
-      if player.downcase == player_name.downcase
-        player_stats << stats
-      end
-    end
-  end
-  player_stats[0]
-end
-
-def big_shoe_rebounds
-  largest_shoe = 0
-  rebounds = 0
-  game_hash.each do |location, team_data|
-    team_data[:players].each do |player, stats|
-      if stats[:shoe] > largest_shoe
-        largest_shoe = stats[:shoe]
-        rebounds = stats[:rebounds]
-      end
-    end
-  end
-  rebounds
-end
-
-def most_points_scored
-  point_count = 0
-  player_name = ""
-  game_hash.each do |location, team_data|
-    team_data[:players].each do |player, stats|
-      if stats[:points] > point_count
-        point_count = stats[:points]
-        player_name = player
-      end
-    end
-  end
-  player_name
-end
-
-def player_with_longest_name
-  names = []
-  game_hash.each do |location, team_data|
-    team_data[:players].each do |player, stats|
-      names << player
-    end
-  end
-  names.sort_by { |name| name.length }.last
-end
+puts team_colors("Brooklyn Nets")
